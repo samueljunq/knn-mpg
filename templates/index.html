@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Predição de Consumo de Combustível (MPG)</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/style.css') }}">
+  <style>
+    body {
+        background: url("{{ url_for('static', filename='car.gif') }}") no-repeat center center fixed;
+        background-size: cover;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    .card {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(255, 215, 0, 0.5);
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+    h1 {
+      color: gold;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    select, input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: none;
+    }
+    .btn {
+      background: gold;
+      color: black;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: white;
+      color: black;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <h1>Predição de Consumo de Combustível (MPG)</h1>
+    <form action="{{ url_for('predict') }}" method="post">
+      
+      <select name="cylinders" required>
+        <option value="" disabled selected>Número de cilindros</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="8">8</option>
+      </select>
+      
+      <input type="text" name="displacement" placeholder="Cilindrada (cm³)" required pattern="^\d+(\.\d{1,2})?$">
+      
+      <input type="text" name="horsepower" placeholder="Potência (HP)" required pattern="^\d+(\.\d{1,2})?$">
+      
+      <input type="text" name="weight" placeholder="Peso (kg)" required pattern="^\d+(\.\d{1,2})?$">
+      
+      <input type="text" name="acceleration" placeholder="Aceleração (0-100 km/h)" required pattern="^\d+(\.\d{1,2})?$">
+      
+      <input type="text" name="model_year" placeholder="Ano do Modelo"">
+      
+      <select name="origin" required>
+        <option value="" disabled selected>Origem</option>
+        <option value="USA">EUA</option>
+        <option value="Europe">Europa</option>
+        <option value="Japan">Japão</option>
+      </select>
+      
+      <button type="submit" class="btn">Prever Consumo</button>
+    </form>
+    <br>
+    <h2>{{ prediction_text }}</h2>
+  </div>
+</body>
+</html>
